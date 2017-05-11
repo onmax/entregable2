@@ -30,20 +30,23 @@ public class Loto {
 
 	public Loto(int numerosSorteo, int[] numeros, int min, int max) throws BadSize, FueraDeRango {
 		// TODO
-		if (numeros.length != numerosSorteo) {
+
+		this.numeros = new int[numerosSorteo];
+
+		if (numerosSorteo != numeros.length) {
 			throw new BadSize("La longitud no es apropiada");
 
 		}
 
-		else if (!todosEnRango(this.numeros, this.min, this.max)) {
+		else if (!todosEnRango(numeros, min, max)) {
 			throw new FueraDeRango("El número escapa el rango de Loto");
-		}
-
+		} 
 		else {
-			this.numeros = new int[numerosSorteo];
+			this.numeros = numeros;
 			this.min = min;
 			this.max = max;
 		}
+
 	}
 
 	/*
@@ -59,7 +62,15 @@ public class Loto {
 	private static boolean todosEnRango(int[] numeros, int min, int max) {
 		// TODO
 
-		return true;
+		boolean resultado = true;
+
+		for (int i = 0; i < numeros.length && resultado; i++) {
+			if (!enRango(numeros[i], min, max)) {
+				resultado = false;
+			}
+		}
+
+		return resultado;
 	}
 
 	/*
